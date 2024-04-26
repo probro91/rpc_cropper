@@ -19,7 +19,7 @@ srtm4_binary = os.path.join(here, 'srtm4')
 try:
    os.stat(srtm4_binary)
 except OSError:
-   print 'BUILDING SRTM4...'
+   print('BUILDING SRTM4...')
    os.system('cd %s; make' % here)
 
 
@@ -132,12 +132,12 @@ def test_me(rpcfile):
    #print "direct estimate error:"
    geo1 = np.array(r1.direct_estimate(11000,20100,10, return_normalized=False))
    geo2 = np.array(r2.direct_estimate(1000,100,10, return_normalized=False))
-   print geo1 - geo2
+   print(geo1 - geo2)
 
    #print "inverse estimate error:"
    pix1 = np.array(r1.inverse_estimate(geo1[0], geo1[1], geo1[2]))
    pix2 = np.array(r2.inverse_estimate(geo1[0], geo1[1], geo1[2]))
-   print pix1 - pix2
+   print(pix1 - pix2)
 
    r2.write('cropped.xml')
 
@@ -220,9 +220,9 @@ def main():
            w = float(sys.argv[10])
            h = float(sys.argv[11])
     else:
-       print "Tool to crop an image and its RPC."
-       print "Incorrect syntax, use:"
-       print "  >  %s out_dir img1 rpc1 [img2 rpc2 [img3 rpc3]] x y w h" % sys.argv[0]
+       print("Tool to crop an image and its RPC.")
+       print("Incorrect syntax, use:")
+       print("  >  %s out_dir img1 rpc1 [img2 rpc2 [img3 rpc3]] x y w h" % sys.argv[0])
        exit(1)
 
     try:

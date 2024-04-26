@@ -168,7 +168,7 @@ def altitude_range(rpc, x, y, w, h, margin_top, margin_bottom):
 
     # if bounding box is out of srtm domain, return coarse altitude estimation
     if (lat_m < -60 or lat_M > 60):
-        print "Out of SRTM domain, returning coarse range from rpc"
+        print("Out of SRTM domain, returning coarse range from rpc")
         return altitude_range_coarse(rpc)
 
     # sample the bounding box with regular step of 3 arcseconds (srtm

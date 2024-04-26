@@ -9,8 +9,8 @@ import sys
 import subprocess
 import requests
 import tempfile
-import urlparse
-import urllib2
+#import urlparse
+#import urllib2
 import re
 
 
@@ -248,8 +248,15 @@ def download(to_file, from_url):
         to_file: path where to store the downloaded file
         from_url: url of the file to download
     """
+    print (from_url)
     r = requests.get(from_url, stream=True)
-    file_size = int(r.headers['content-length'])
+    is_chunked = r.headers.get('transfer-encoding', '') == 'chunked'
+    content_length_s = r.headers.get('content-length')
+    if not is_chunked and content_length_s.isdigit():
+        file_size = int(content_length_s)
+    else:
+        file_size = None
+    #file_size = int(r.headers['content-length'])
     print("Downloading: %s Bytes: %s" % (to_file, file_size))
 
     downloaded = 0
@@ -258,6 +265,6 @@ def download(to_file, from_url):
             if chunk:  # filter out keep-alive new chunks
                 f.write(chunk)
                 downloaded += len(chunk)
-                status = r"%10d  [%3.2f%%]" % (downloaded, downloaded * 100. / file_size)
-                status = status + chr(8)*(len(status)+1)
-                print(status, end=" ")
+                #status = r"%10d  [%3.2f%%]" % (downloaded, downloaded * 100. / file_size)
+                #status = status + chr(8)*(len(status)+1)
+                #print(status, end=" ")
